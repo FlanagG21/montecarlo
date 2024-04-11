@@ -1,29 +1,92 @@
-"""Provide the primary functions."""
+def energy(bs: BitString, G: nx.Graph):
+    """Compute energy of configuration, `bs`
 
-
-def canvas(with_attribution=True):
-    """
-    Placeholder function to show example docstring (NumPy format).
-
-    Replace this function and doc string for your own project.
+        .. math::
+            E = \\left<\\hat{H}\\right>
 
     Parameters
     ----------
-    with_attribution : bool, Optional, default: True
-        Set whether or not to display who the quote is from.
-
+    bs   : Bitstring
+        input configuration
+    G    : Graph
+        input graph defining the Hamiltonian
     Returns
     -------
-    quote : str
-        Compiled string including quote and optional attribution.
+    energy  : float
+        Energy of the input configuration
+"""
+def energy(bs: BitString, G: nx.Graph):
+    energy = 0.0
+    for u,v in G.edges():
+        if bs.config[u] == bs.config[v]:
+            energy += G.edges[u,v]["weight"]
+        else:
+            energy -= G.edges[u,v]["weight"]
+    return energy
+
+k =  1
+def compute_average_values(bs:BitString, G: nx.Graph, T: float):
     """
+    Compute the average value of Energy, Magnetization, 
+    Heat Capacity, and Magnetic Susceptibility 
 
-    quote = "The code is but a canvas to our imagination."
-    if with_attribution:
-        quote += "\n\t- Adapted from Henry David Thoreau"
-    return quote
+        .. math::
+            E = \\left<\\hat{H}\\right>
 
+    Parameters
+    ----------
+    bs   : Bitstring
+        input configuration
+    G    : Graph
+        input graph defining the Hamiltonian
+    T    : float
+        temperature of the system
+    Returns
+    -------
+    energy  : float
+    magnetization  : float
+    heat capacity  : float
+    magnetic susceptibility  : float
+    """
+    E = 0
+    M = 0
+    HC = 0
+    MS = 0
 
-if __name__ == "__main__":
-    # Do something if this file is invoked on its own
-    print(canvas())
+    z, z2, zm, zm2 = boltzmanDenominator(bs, G, T)
+    for i in range(2 ** bs.N):
+        bs.set_int_config(i)
+        currEnergy = energy(bs, G)
+        p = np.e ** ((-1 / (k * T))* currEnergy)
+        p /= z
+        E += currEnergy*p
+        currEnergySquared = currEnergy ** 2
+        HC += currEnergySquared * p
+        mag = bs.on() - bs.off()
+        M += mag * p
+        magSQR = mag**2
+        MS += magSQR * p
+    MS = (MS - M**2) * T ** -1        
+    HC = (HC - E**2) * T ** -2
+    
+    return E, M, HC, MS
+
+def boltzmanDenominator(bs:BitString, G: nx.Graph, T: float):
+    z = 0
+    z2 = 0
+    zm = 0
+    zm2 = 0
+    for i in range(2 ** bs.N):
+        bs.set_int_config(i)
+        currEnergy = energy(bs, G)
+        z += np.e ** ((-1 / (k * T))* currEnergy)
+        currEnergySquared = currEnergy ** 2
+        z2 += np.e ** ((-1 / (k * T)) * currEnergySquared)
+        mag = bs.on() - bs.off()
+        magSQR = mag ** 2
+        zm += np.e ** ((-1 / (k * T)) * mag)
+        zm2 += np.e ** ((-1 / (k * T)) * magSQR)
+    currEnergy = energy(bs, G)
+    z += np.e ** ((-1 / (k * T)) * currEnergy)
+    print((-1 / (k * T)))
+    return z, z2, zm, zm2
