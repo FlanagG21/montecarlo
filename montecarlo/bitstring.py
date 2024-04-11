@@ -1,3 +1,5 @@
+
+import numpy as np
 class BitString:
     def __init__(self, N):
         self.N = N

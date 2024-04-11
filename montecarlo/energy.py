@@ -1,4 +1,5 @@
 from .bitstring import *
+import numpy as np
 import networkx as nx
 def energy(bs: BitString, G: nx.Graph):
     energy = 0.0
