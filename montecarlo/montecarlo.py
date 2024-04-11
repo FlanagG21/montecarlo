@@ -1,21 +1,4 @@
 def energy(bs: BitString, G: nx.Graph):
-    """Compute energy of configuration, `bs`
-
-        .. math::
-            E = \\left<\\hat{H}\\right>
-
-    Parameters
-    ----------
-    bs   : Bitstring
-        input configuration
-    G    : Graph
-        input graph defining the Hamiltonian
-    Returns
-    -------
-    energy  : float
-        Energy of the input configuration
-"""
-def energy(bs: BitString, G: nx.Graph):
     energy = 0.0
     for u,v in G.edges():
         if bs.config[u] == bs.config[v]:
@@ -26,28 +9,6 @@ def energy(bs: BitString, G: nx.Graph):
 
 k =  1
 def compute_average_values(bs:BitString, G: nx.Graph, T: float):
-    """
-    Compute the average value of Energy, Magnetization, 
-    Heat Capacity, and Magnetic Susceptibility 
-
-        .. math::
-            E = \\left<\\hat{H}\\right>
-
-    Parameters
-    ----------
-    bs   : Bitstring
-        input configuration
-    G    : Graph
-        input graph defining the Hamiltonian
-    T    : float
-        temperature of the system
-    Returns
-    -------
-    energy  : float
-    magnetization  : float
-    heat capacity  : float
-    magnetic susceptibility  : float
-    """
     E = 0
     M = 0
     HC = 0
