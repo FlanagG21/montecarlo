@@ -2,13 +2,13 @@ from .bitstring import *
 import numpy as np
 def energy(bs: BitString, J: list[list]):
     energy = 0.0
-    for u in range(len(J)):
-        for v in range(len(J[u])):
+    for u, neighbors in enumerate(J):
+        for v, weight in neighbors:
             if bs.config[u] == bs.config[v]:
-                energy += J[u][v]
-            else:
-                energy -= J[u][v]
-    return energy
+                energy += weight
+            else :
+                energy -= weight
+    return energy / 2
 
 k =  1
 def compute_average_values(bs:BitString, J: list[list], T: float):
