@@ -13,6 +13,7 @@ dependencies:
   - numpy
   - networkx
   - matplotlib
+  - typing
 
     # Testing
   - pytest

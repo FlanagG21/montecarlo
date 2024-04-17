@@ -1,5 +1,6 @@
 
 import numpy as np
+from typing import List
 class BitString:
     def __init__(self, N):
         self.N = N
@@ -38,7 +39,7 @@ class BitString:
             num += bit * (2 ** i)
         return num
 
-    def set_config(self, s:list[int]):
+    def set_config(self, s:List[int]):
         for i, bit in enumerate(s):
             self.config[i + (self.N - len(s))] = bit
         
