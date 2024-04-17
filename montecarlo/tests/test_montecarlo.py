@@ -24,10 +24,11 @@ G.add_edges_from([(i,(i+1)% G.number_of_nodes() ) for i in range(N)])
 for e in G.edges:
     G.edges[e]['weight'] = Jval
 
-@pytest.mark.skip
-def get_IsingHamiltonian(G, mus=None):
-    if mus == None:
-        mus = np.zeros(len(G.nodes()))
+
+def test_montecarlo():
+    # Define a new configuration instance for a 6-site lattice
+    conf = montecarlo.BitString(N)
+    mus = np.zeros(len(G.nodes()))
 
     if len(G.nodes()) != len(mus):
         error("DimensionMismatch")
@@ -38,13 +39,7 @@ def get_IsingHamiltonian(G, mus=None):
     for e in G.edges:
         J[e[0]].append((e[1], G.edges[e]['weight']))
         J[e[1]].append((e[0], G.edges[e]['weight']))
-    return montecarlo.IsingHamiltonian(J,mus)
-
-def test_montecarlo():
-    # Define a new configuration instance for a 6-site lattice
-    conf = montecarlo.BitString(N)
-    ham = get_IsingHamiltonian(G)
-
+    ham = montecarlo.IsingHamiltonian(J,mus)
     # Compute the average values for Temperature = 1
     E, M, HC, MS = ham.compute_average_values(1)
 
