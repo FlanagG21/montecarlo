@@ -1,6 +1,7 @@
 from .bitstring import *
 import numpy as np
-def energy(bs: BitString, J: list[list]):
+from typing import List
+def energy(bs: BitString, J: List[List]):
     energy = 0.0
     for u, neighbors in enumerate(J):
         for v, weight in neighbors:
@@ -11,7 +12,7 @@ def energy(bs: BitString, J: list[list]):
     return energy / 2
 
 k =  1
-def compute_average_values(bs:BitString, J: list[list], T: float):
+def compute_average_values(bs:BitString, J: List[List], T: float):
     E = 0
     M = 0
     HC = 0
@@ -35,7 +36,7 @@ def compute_average_values(bs:BitString, J: list[list], T: float):
     
     return E, M, HC, MS
 
-def boltzmanDenominator(bs:BitString, J: list[list], T: float):
+def boltzmanDenominator(bs:BitString, J: List[List], T: float):
     z = 0
     z2 = 0
     zm = 0
