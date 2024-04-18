@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import montecarlo as montecarlo
 
 
+
 def test_montecarlo_imported():
     """Sample test, will always pass so long as import statement worked."""
     assert "montecarlo" in sys.modules
