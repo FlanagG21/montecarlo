@@ -12,3 +12,5 @@ dependencies:
     # Pip-only installs
   - pip:
         - sphinx-rtd-theme
+        - sphinx-autoapi
+
