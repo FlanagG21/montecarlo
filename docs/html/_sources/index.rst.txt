@@ -5,8 +5,6 @@
 
 Welcome to montecarlo's documentation!
 =========================================================
-montecarlo is a python package meant designed to calculate energy states of 2d Ising models.
-In addition it is structured towards finding the average energy of the entire model.
 
 .. toctree::
    :maxdepth: 2

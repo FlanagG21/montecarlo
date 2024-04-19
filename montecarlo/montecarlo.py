@@ -7,4 +7,4 @@ class IsingHamiltonian:
         self.bs.set_config(mus.tolist())
         
     def compute_average_values(self, T):
-        return compute_average_values(self.bs, self.J, T)
+        return compute_energy_average_values(self.bs, self.J, T)

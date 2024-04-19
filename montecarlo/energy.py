@@ -12,7 +12,7 @@ def energy(bs: BitString, J: List[List]):
     return energy / 2
 
 k =  1
-def compute_average_values(bs:BitString, J: List[List], T: float):
+def compute_energy_average_values(bs:BitString, J: List[List], T: float):
     E = 0
     M = 0
     HC = 0
