@@ -52,7 +52,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.extlinks',
 ]
-autoapi_dirs = ['../molecool']
+autoapi_dirs = ['../montecarlo']
 autoapi_ignore = ["*/tests/*",
                   "*_version.py"]
                   
