@@ -3,6 +3,7 @@ montecarlo
 [//]: # (Badges)
 [![GitHub Actions Build Status](https://github.com/FlanagG21/montecarlo/workflows/CI/badge.svg)](https://github.com/FlanagG21/montecarlo/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/FlanagG21/montecarlo/branch/main/graph/badge.svg)](https://codecov.io/gh/FlanagG21/montecarlo/branch/main)
+[![Documentation Status](https://readthedocs.org/projects/montecarlo2/badge/?version=latest)](https://montecarlo2.readthedocs.io/en/latest/?badge=latest)
 
 
 a package for calculating energy of Ising models
