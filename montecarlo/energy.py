@@ -1,7 +1,16 @@
 from .bitstring import *
 import numpy as np
-from typing import List
+from typing import List 
+
+
 def energy(bs: BitString, J: List[List]):
+    """
+    Calculate the energy of a given configuration.
+
+    :param bs: BitString object representing the configuration.
+    :param J: List of lists representing interactions between spins.
+    :return: Energy of the configuration.
+    """
     energy = 0.0
     for u, neighbors in enumerate(J):
         for v, weight in neighbors:
@@ -13,6 +22,14 @@ def energy(bs: BitString, J: List[List]):
 
 k =  1
 def compute_energy_average_values(bs:BitString, J: List[List], T: float):
+    """
+    Compute energy, magnetization, heat capacity, and magnetic susceptibility.
+
+    :param bs: BitString object representing the configuration.
+    :param J: List of lists representing interactions between spins.
+    :param T: Temperature.
+    :return: Tuple of energy, magnetization, heat capacity, and magnetic susceptibility.
+    """
     E = 0
     M = 0
     HC = 0
