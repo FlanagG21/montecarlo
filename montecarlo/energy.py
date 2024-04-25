@@ -36,6 +36,11 @@ def compute_energy_average_values(bs:BitString, J: List[List], T: float):
     MS = 0
 
     z = boltzmanDenominator(bs, J, T)
+    """_summary_
+    Compute energy, magnetization, heat capacity, and magnetic susceptibility.
+    Returns:
+        _type_: a touple of average energy, magnetization, Heat capacity and magnetic susceptibility.
+    """
     for i in range(2 ** bs.N):
         bs.set_int_config(i)
         currEnergy = energy(bs, J)
@@ -54,6 +59,9 @@ def compute_energy_average_values(bs:BitString, J: List[List], T: float):
     return E, M, HC, MS
 
 def boltzmanDenominator(bs:BitString, J: List[List], T: float):
+    """_summary_
+    private method do not call directly.
+    """
     z = 0
     z2 = 0
     zm = 0
