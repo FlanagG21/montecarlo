@@ -16,7 +16,10 @@ class IsingHamiltonian:
         """
         self.J = J
         self.bs = BitString(len(mus))
-        self.bs.set_config(mus.tolist())
+        if isinstance(mus, list):
+            self.bs.set_config(mus)
+        else:    
+            self.bs.set_config(mus.tolist())
         
     def compute_average_values(self, T):
         """
