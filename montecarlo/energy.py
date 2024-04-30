@@ -1,73 +1,47 @@
-from .bitstring import *
-import numpy as np
-from typing import List 
 
+def compute_energy_average_values(self, T):
+    """Compute Average values exactly
 
-def energy(bs: BitString, J: List[List]):
+    Parameters
+    ----------
+    T      : int
+        Temperature
+
+    Returns
+    -------
+    E  : float
+        Energy
+    M  : float
+        Magnetization
+    HC : float
+        Heat Capacity
+    MS : float
+        Magnetic Susceptability
     """
-    Calculate the energy of a given configuration.
+    E = 0.0
+    M = 0.0
+    Z = 0.0
+    EE = 0.0
+    MM = 0.0
 
-    :param bs: BitString object representing the configuration.
-    :param J: List of lists representing interactions between spins.
-    :return: Energy of the configuration.
-    """
-    energy = 0.0
-    for u, neighbors in enumerate(J):
-        for v, weight in neighbors:
-            if bs.config[u] == bs.config[v]:
-                energy += weight
-            else :
-                energy -= weight
-    return energy / 2
+    conf = montecarlo.BitString(self.N)
 
-k =  1
-def compute_energy_average_values(bs:BitString, J: List[List], T: float):
-    """
-    Compute energy, magnetization, heat capacity, and magnetic susceptibility.
+    for i in range(conf.n_dim):
+        conf.set_int_config(i)
+        Ei = self.energy(conf)
+        Zi = np.exp(-Ei / T)
+        E += Ei * Zi
+        EE += Ei * Ei * Zi
+        Mi = np.sum(2 * conf.config - 1)
+        M += Mi * Zi
+        MM += Mi * Mi * Zi
+        Z += Zi
 
-    :param bs: BitString object representing the configuration.
-    :param J: List of lists representing interactions between spins.
-    :param T: Temperature.
-    :return: Tuple of energy, magnetization, heat capacity, and magnetic susceptibility.
-    """
-    E = 0
-    M = 0
-    HC = 0
-    MS = 0
+    E = E / Z
+    M = M / Z
+    EE = EE / Z
+    MM = MM / Z
 
-    z = boltzmanDenominator(bs, J, T)
-    """_summary_
-    Compute energy, magnetization, heat capacity, and magnetic susceptibility.
-    Returns:
-        _type_: a touple of average energy, magnetization, Heat capacity and magnetic susceptibility.
-    """
-    for i in range(2 ** bs.N):
-        bs.set_int_config(i)
-        currEnergy = energy(bs, J)
-        p = np.e ** ((-1 / (k * T))* currEnergy)
-        p /= z
-        E += currEnergy*p
-        currEnergySquared = currEnergy ** 2
-        HC += currEnergySquared * p
-        mag = bs.on() - bs.off()
-        M += mag * p
-        magSQR = mag**2
-        MS += magSQR * p
-    MS = (MS - M**2) * T ** -1        
-    HC = (HC - E**2) * T ** -2
-    
+    HC = (EE - E * E) / (T * T)
+    MS = (MM - M * M) / T
     return E, M, HC, MS
-
-def boltzmanDenominator(bs:BitString, J: List[List], T: float):
-    """_summary_
-    private method do not call directly.
-    """
-    z = 0
-    z2 = 0
-    zm = 0
-    zm2 = 0
-    for i in range(2 ** bs.N):
-        bs.set_int_config(i)
-        currEnergy = energy(bs, J)
-        z += np.e ** ((-1 / (k * T))* currEnergy)
-    return z
