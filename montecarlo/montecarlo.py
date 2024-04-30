@@ -16,7 +16,6 @@ class IsingHamiltonian:
         """
         self.J = J
         self.bs = BitString(len(mus))
-        self.mu = 1
         if isinstance(mus, list):
             self.bs.set_config(mus)
         else:    
