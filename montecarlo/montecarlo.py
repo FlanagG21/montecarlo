@@ -126,16 +126,16 @@ class IsingHamiltonian:
         y = [] # Store list of energies
         xmin = None # configuration of minimum energy configuration
         emin = None # minimum of energy
-        my_bs = BitString(10)
+        conf = BitString(self.N)
 
         # Add code here to find the lowest energy configuration
-        for i in range(2**10):
-            my_bs.set_int_config(i)
-            e = energy(my_bs, G)
+        for i in range(2**self.N):
+            self.set_int_config(i)
+            e = self.energy(conf)
             if(emin == None or emin > e):
                 emin = e
-                xmin = my_bs.int()
+                xmin = conf.int()
             x.append(i)
             y.append(e)
-        my_bs.set_int_config(xmin)
-        return emin, my_bs
+        conf.set_int_config(xmin)
+        return emin, conf
