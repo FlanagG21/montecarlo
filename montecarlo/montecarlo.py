@@ -118,7 +118,7 @@ class IsingHamiltonian:
         MS = (MM - M * M) / T
         return E, M, HC, MS
     
-    def get_lowest_energy_config(verbose):
+    def get_lowest_energy_config(self, verbose):
         """
         gets the lowest possible energy state of the ising model
         """
