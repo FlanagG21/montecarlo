@@ -130,7 +130,7 @@ class IsingHamiltonian:
 
         # Add code here to find the lowest energy configuration
         for i in range(2**self.N):
-            self.set_int_config(i)
+            conf.set_int_config(i)
             e = self.energy(conf)
             if(emin == None or emin > e):
                 emin = e
