@@ -1,4 +1,4 @@
-"""a package for calculating eneryg of ising models"""
+"""a package for calculating energy of ising models"""
 
 # Add imports here
 from .montecarlo import *
